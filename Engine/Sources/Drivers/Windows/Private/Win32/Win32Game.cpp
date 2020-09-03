@@ -2,7 +2,8 @@
 #include <windows.h>
 #include "ChristEngineWin32.h"
 #include "Win32Game.h"
-#include<tchar.h>
+//#include<tchar.h>
+#include <cstdio>
 
 void RunChristGame(const char* clsname, const char* titlename, /*HICON icon,*/ int argc, char** argv)
 {
@@ -70,6 +71,13 @@ Win32Game::Win32Game(const char* clsname, const char* titlename)
 	: GameApp{}, mWindow{NULL}
 {
 	mWindow = CreateGameWindow(clsname, titlename, 1024, 768);
+
+	AllocConsole();
+	SetConsoleTitle("ChristEngine Console");
+	freopen("CONIN$", "r", stdin);
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+	printf("Windows Init Done\n");
 }
 
 void Win32Game::Run()
