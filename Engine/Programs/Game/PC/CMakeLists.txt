@@ -1,8 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/Sources/Drivers/Windows/Public)
-message(${PROJECT_SOURCE_DIR}/Sources/Drivers/Windows/Public)
-message("hello")
 
 AUX_SOURCE_DIRECTORY(./ DIR_SRCS)
 

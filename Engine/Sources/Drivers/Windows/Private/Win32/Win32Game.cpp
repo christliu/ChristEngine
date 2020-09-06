@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "ChristEngineWin32.h"
 #include "Win32Game.h"
-//#include<tchar.h>
+#include "Client/ClientEngine.h"
 #include <cstdio>
 
 void RunChristGame(const char* clsname, const char* titlename, /*HICON icon,*/ int argc, char** argv)
@@ -78,11 +78,16 @@ Win32Game::Win32Game(const char* clsname, const char* titlename)
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
 	printf("Windows Init Done\n");
+
+	// init
+	new ClientEngine{};
+	GClientEngine->Initialize();
+
 }
 
 void Win32Game::Run()
 {
-	MSG msg  = {0};
+	MSG msg = {0};
 	while( GetMessage( &msg, NULL, 0, 0 ) > 0 )
 		DispatchMessage( &msg );
 }
