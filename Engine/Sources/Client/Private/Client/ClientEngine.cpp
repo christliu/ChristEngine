@@ -2,6 +2,7 @@
 // TODO: Remove Device Impl here
 #include "OpenGLDevice.h"
 
+ClientEngine* GClientEngine = nullptr;
 
 ClientEngine::ClientEngine()
 {
