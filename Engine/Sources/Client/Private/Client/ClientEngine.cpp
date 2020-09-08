@@ -14,4 +14,6 @@ void ClientEngine::Initialize()
 {
 	// Init Device
 	new OpenGLDevice{};
+	
+	GRenderDevice->Initialize();
 }
