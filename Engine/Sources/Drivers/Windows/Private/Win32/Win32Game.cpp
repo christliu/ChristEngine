@@ -91,3 +91,9 @@ void Win32Game::Run()
 	while( GetMessage( &msg, NULL, 0, 0 ) > 0 )
 		DispatchMessage( &msg );
 }
+
+
+void* Win32Game::GetContext()
+{
+	return (void*)mWindow;
+}

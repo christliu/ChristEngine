@@ -8,6 +8,8 @@ public:
 	Win32Game(const char* clsname, const char* titlename);
 	void Run();
 
+	virtual void* GetContext();
+
 private:
 	HWND mWindow;
 };

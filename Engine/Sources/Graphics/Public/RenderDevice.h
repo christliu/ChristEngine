@@ -2,7 +2,8 @@
 class RenderDevice
 {
 public:
-	RenderDevice();
+	RenderDevice(){};
+	RenderDevice(void* platform_context);
 
 	virtual int GetDeviceTag() = 0;
 	virtual void Initialize() = 0;

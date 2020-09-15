@@ -1,9 +1,8 @@
 #include "Client/GameApp.h"
 
-// void GameApp::Run()
-// {
-// 	while(1)
-// 	{
-		
-// 	}
-// }
+GameApp* GApp;
+
+GameApp::GameApp()
+{
+	GApp = this;
+}

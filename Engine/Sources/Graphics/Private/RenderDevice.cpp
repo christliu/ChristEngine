@@ -2,7 +2,7 @@
 
 RenderDevice* GRenderDevice = nullptr;
 
-RenderDevice::RenderDevice()
+RenderDevice::RenderDevice(void* platform_context)
 {
 	GRenderDevice = this;
 }

@@ -2,6 +2,11 @@
 #include "OpenGLDevice.h"
 #include <stdio.h>
 
+OpenGLDevice::OpenGLDevice(void* platform_context)
+{
+	context = platform_context;
+}
+
 void OpenGLDevice::Initialize()
 {
 	printf("OpenGLDevice Initialize");
