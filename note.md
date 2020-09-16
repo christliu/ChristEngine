@@ -9,3 +9,5 @@ This is note of my idea when I wrote ChristEngine. Maybe I will erase them all  
 * OpenGL without any third library such as glut。
 
 > Messiah更新之后取消了RHI的设计，初步思考是为了作framegraph的时候更灵活处理各个device的特性。
+
+OpenGL在windows平台上，都是通过动态链接OpenGL32.dll的，而OpenGL32.dll只支持OpenGL1.1, 于是要想在windows上使用新版opengl的功能，都要用扩展访问，即调用wglGetProcAddress获取地址。
