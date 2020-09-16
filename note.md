@@ -14,7 +14,7 @@ OpenGL在windows平台上，都是通过动态链接OpenGL32.dll的，而OpenGL3
 
 
 
-## 开发计划
+## Dev Schedule
 
 * opengl device .
 * graphics manager render loop every frame in main thread.
@@ -23,3 +23,7 @@ OpenGL在windows平台上，都是通过动态链接OpenGL32.dll的，而OpenGL3
 * skeleton animation.
 * shader with light and shadow.
 * pbr relearn.
+* dx11.
+* dx12
+* vulkan.
+* multithread rendering.
