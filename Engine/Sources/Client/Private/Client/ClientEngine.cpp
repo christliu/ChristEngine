@@ -4,7 +4,6 @@
 #include "Client/GameApp.h"
 
 ClientEngine* GClientEngine = nullptr;
-//extern GameApp* GApp;
 
 ClientEngine::ClientEngine()
 {
