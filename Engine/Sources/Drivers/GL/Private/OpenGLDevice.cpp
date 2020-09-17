@@ -2,7 +2,7 @@
 #include "OpenGLDevice.h"
 #include <stdio.h>
 
-OpenGLDevice::OpenGLDevice(void* platform_context)
+OpenGLDevice::OpenGLDevice(void* platform_context) : RenderDevice(platform_context)
 {
 	context = platform_context;
 }

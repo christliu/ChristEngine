@@ -3,7 +3,7 @@
 class OpenGLDevice : public RenderDevice
 {
 public:
-	OpenGLDevice() {};
+	// OpenGLDevice() {};
 	OpenGLDevice(void* platform_context);
 	void Initialize();
 	void Finalize();
