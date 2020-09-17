@@ -19,6 +19,10 @@ static LRESULT CALLBACK GameWindowProc(HWND hwnd, INT32 msg, WPARAM wParam, LPAR
 		{
 			PostQuitMessage(0);
 		}
+		case WM_PAINT:
+		{
+			GClientEngine->Draw();
+		}
 		break;
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);

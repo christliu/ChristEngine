@@ -7,6 +7,7 @@ public:
 
 	virtual int GetDeviceTag() = 0;
 	virtual void Initialize() = 0;
+	virtual void Draw() = 0;
 };
 
 extern RenderDevice *GRenderDevice;

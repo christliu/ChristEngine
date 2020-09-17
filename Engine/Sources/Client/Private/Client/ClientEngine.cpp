@@ -18,3 +18,9 @@ void ClientEngine::Initialize()
 	
 	GRenderDevice->Initialize();
 }
+
+
+void ClientEngine::Draw()
+{
+	GRenderDevice->Draw();
+}

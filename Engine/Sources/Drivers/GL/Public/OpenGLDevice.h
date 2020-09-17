@@ -11,6 +11,8 @@ public:
 
 	// TODO: Return String or Enum
 	int GetDeviceTag() { return 1;}
+
+	void Draw();
 private:
 	void CreateOpenGLContext();
 	void DynamicLoadOpenGL();

@@ -70,9 +70,3 @@
 // PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 // PFNGLUNIFORM3FVPROC glUniform3fv;
 // PFNGLUNIFORM4FVPROC glUniform4fv;
-
-HGLRC wglCreateContextAttribsARB(HDC hDC, HGLRC hShareContext, const int *attribList) { return __wglCreateContextAttribsARB(hDC, hShareContext, attribList); }
-// wglChoosePixelFormatARB
-BOOL wglChoosePixelFormatARB(HDC hdc, const int* piAttribIList, const FLOAT *pfAttribFList, UINT nMaxFormats, int *piFormats, UINT *nNumFormats) { return __wglChoosePixelFormatARB(hdc, piAttribIList, pfAttribFList, nMaxFormats, piFormats, nNumFormats); }
-// wglSwapIntervalEXT
-BOOL wglSwapIntervalEXT(int interval) { return __wglSwapIntervalEXT(interval); }

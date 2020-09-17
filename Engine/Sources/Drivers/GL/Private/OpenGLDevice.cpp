@@ -79,7 +79,7 @@ bool firstLoadGL()
 	wglMakeCurrent(hDC, context);
 
 	// Use define to simplify
-	printf("init wgl create context arb\n");
+	printf("init wgl create context arb");
 	wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 	wglChoosePixelFormatARB = (PFNWGLCHOOSEPIXELFORMATARBPROC)wglGetProcAddress("wglChoosePixelFormatARB");
 
@@ -104,6 +104,24 @@ void OpenGLDevice::Initialize()
 
 	CreateOpenGLContext();
 	DynamicLoadOpenGL();
+
+	glClearDepth(1.0f);
+	glClearColor(0.0,0.0,0.0,0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void OpenGLDevice::Draw()
+{
+	printf("draw run\n");
+	glClearDepth(1.0f);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	HWND window = (HWND)_platform_context;
+
+	HDC hDC = ::GetDC(window);
+
+	SwapBuffers(hDC);
 }
 
 void OpenGLDevice::Finalize()
