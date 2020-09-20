@@ -1,1 +1,6 @@
 Build
+bin/
+bin-int/
+.sln
+*.vcxproj*
+.vs/
