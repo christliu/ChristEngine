@@ -1,13 +1,13 @@
 #include "Christ.h"
-#include <iostream>
-using namespace std;
+#include "Christ/Log.h"
+
 
 class MyApplication: public Christ::Application
 {
 public:
 	void Run() override
 	{
-		cout << "In MyApplication " << endl;
+		LOG_ERROR("MyApplication Is Running");
 		while (1);
 	}
 };

@@ -25,3 +25,9 @@ namespace Christ
 #define LOG_CORE_WARN(...) Christ::Log::GetCoreLog()->warn(__VA_ARGS__)
 #define LOG_CORE_ERROR(...) Christ::Log::GetCoreLog()->error(__VA_ARGS__)
 #define LOG_CORE_FATAL(...) Christ::Log::GetCoreLog()->fatal(__VA_ARGS__)
+
+#define LOG_TRACE(...) Christ::Log::GetAppLog()->trace(__VA_ARGS__)
+#define LOG_INFO(...) Christ::Log::GetAppLog()->info(__VA_ARGS__)
+#define LOG_WARN(...) Christ::Log::GetAppLog()->warn(__VA_ARGS__)
+#define LOG_ERROR(...) Christ::Log::GetAppLog()->error(__VA_ARGS__)
+#define LOG_FATAL(...) Christ::Log::GetAppLog()->fatal(__VA_ARGS__)
