@@ -5,12 +5,6 @@
 
 #pragma comment (lib, "opengl32.lib")
 
-// HGLRC wglCreateContextAttribsARB(HDC hDC, HGLRC hShareContext, const int *attribList) { return __wglCreateContextAttribsARB(hDC, hShareContext, attribList); }
-// // wglChoosePixelFormatARB
-// BOOL wglChoosePixelFormatARB(HDC hdc, const int* piAttribIList, const FLOAT *pfAttribFList, UINT nMaxFormats, int *piFormats, UINT *nNumFormats) { return __wglChoosePixelFormatARB(hdc, piAttribIList, pfAttribFList, nMaxFormats, piFormats, nNumFormats); }
-// // wglSwapIntervalEXT
-// BOOL wglSwapIntervalEXT(int interval) { return __wglSwapIntervalEXT(interval); }
-
 typedef HGLRC (WINAPI  * PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShareContext, const int *attribList);
 typedef BOOL (WINAPI  * PFNWGLCHOOSEPIXELFORMATARBPROC) (HDC hdc, const int *piAttribIList, const FLOAT *pfAttribFList, UINT nMaxFormats, int *piFormats, UINT *nNumFormats);
 
@@ -104,15 +98,10 @@ void OpenGLDevice::Initialize()
 
 	CreateOpenGLContext();
 	DynamicLoadOpenGL();
-
-	glClearDepth(1.0f);
-	glClearColor(0.0,0.0,0.0,0.0);
-	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void OpenGLDevice::Draw()
 {
-	printf("draw run\n");
 	glClearDepth(1.0f);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);

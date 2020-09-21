@@ -1,0 +1,3 @@
+[submodule "Christ/external/spdlog"]
+	path = Christ/external/spdlog
+	url = https://github.com/gabime/spdlog
