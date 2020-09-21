@@ -12,6 +12,9 @@ project "Christ"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "Pch.h"
+	pchsource "Christ/src/Pch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

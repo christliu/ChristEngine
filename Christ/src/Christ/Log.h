@@ -3,8 +3,6 @@
 #include "Core.h"
 #include "spdlog/spdlog.h"
 
-#include <memory>
-
 namespace Christ
 {
 	class CHRIST_API Log
