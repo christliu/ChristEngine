@@ -27,3 +27,10 @@ OpenGL在windows平台上，都是通过动态链接OpenGL32.dll的，而OpenGL3
 * dx12
 * vulkan.
 * multithread rendering.
+
+Change my dev schedule.
+
+* use premake instead of cmake which is much easier.
+* let my engine export dll and program import the dll.
+* log system
+* event system
