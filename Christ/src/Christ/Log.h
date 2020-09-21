@@ -10,15 +10,18 @@ namespace Christ
 	class CHRIST_API Log
 	{
 	public:
-		static void init();
-
-		static std::shared_ptr < spdlog::logger > p_CoreLog;
-		static std::shared_ptr < spdlog::logger > p_AppLog;
+		static void Init();
 
 		static std::shared_ptr<spdlog::logger>& GetCoreLog();
 		static std::shared_ptr<spdlog::logger>& GetAppLog();
+
+	private:
+		static std::shared_ptr < spdlog::logger > p_CoreLog;
+		static std::shared_ptr < spdlog::logger > p_AppLog;
 	};
 }
+
+#define LOG_INIT Christ::Log::Init();
 
 #define LOG_CORE_TRACE(...) Christ::Log::GetCoreLog()->trace(__VA_ARGS__)
 #define LOG_CORE_INFO(...) Christ::Log::GetCoreLog()->info(__VA_ARGS__)

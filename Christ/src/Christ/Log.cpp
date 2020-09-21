@@ -8,7 +8,7 @@ namespace Christ
 	std::shared_ptr < spdlog::logger > Log::p_CoreLog;
 	std::shared_ptr < spdlog::logger > Log::p_AppLog;
 
-	void Log::init()
+	void Log::Init()
 	{
 		p_CoreLog = spdlog::stdout_color_mt("Christ");
 		p_CoreLog->set_level(spdlog::level::trace);

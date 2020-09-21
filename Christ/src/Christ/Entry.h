@@ -6,7 +6,7 @@ extern Christ::Application* CreateApplication();
 
 int main()
 {
-	Christ::Log::init();
+	LOG_INIT;
 	LOG_CORE_INFO("Entry Main Function");
 	Christ::Application* app = CreateApplication();
 	app->Run();
