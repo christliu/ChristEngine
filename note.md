@@ -34,3 +34,31 @@ Change my dev schedule.
 * let my engine export dll and program import the dll.
 * log system
 * event system
+
+## Event System
+
+event type:
+
+window_resize window_close
+
+keypress keyrelease
+
+mouseclick mousemove
+
+
+
+event class
+
+GetType() static GetType
+
+
+
+eventdispatcher
+
+dispatch<T>(event& e)
+
+{
+
+e.GetType() in T::GetType()
+
+}

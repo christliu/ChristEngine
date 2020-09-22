@@ -72,3 +72,24 @@ project "GameApp"
 		{
 		}
 	
+
+project "Test"
+	location "Test"
+	kind "ConsoleApp"
+	language "c++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp"
+	}
+
+	filter "system:windows"
+		staticruntime "On"
+		systemversion "latest"
+		defines
+		{
+		}
+	
