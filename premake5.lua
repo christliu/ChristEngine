@@ -1,6 +1,7 @@
 workspace "ChristEngine"
 	architecture "x86_64"
 	configurations {"Debug", "Release"}
+	characterset "MBCS"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 

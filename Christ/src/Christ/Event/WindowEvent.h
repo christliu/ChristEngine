@@ -8,6 +8,7 @@ namespace Christ
 	{
 	public:
 		WindowClosedEvent() {}
+
 		EVENT_CLASS_TYPE(WindowClosed)
 
 	};

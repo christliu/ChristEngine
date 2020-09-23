@@ -5,12 +5,6 @@
 
 class MyApplication: public Christ::Application
 {
-public:
-	void Run() override
-	{
-		LOG_ERROR("MyApplication Is Running");
-		while (1);
-	}
 };
 
 bool OnClose(Christ::EventBase& e)

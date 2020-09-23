@@ -2,15 +2,20 @@
 
 #include "Core.h"
 
+#include "WindowBase.h"
+
 namespace Christ
 {
 	class CHRIST_API Application
 	{
 
 	public:
-		Application(){};
+		Application();
 
 		virtual void Run();
+
+	private:
+		WindowBase* m_window;
 
 	};
 

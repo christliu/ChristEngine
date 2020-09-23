@@ -8,7 +8,7 @@ public:
 	{
 		std::cout << "In Base" << std::endl;
 	}
-
+	static void F1();
 };
 
 class Derived : public Base
@@ -21,6 +21,11 @@ public:
 
 };
 
+void Base::F1()
+{
+	std::cout << "In F1" << std::endl;
+}
+
 bool Dispatch(Base& b)
 {
 	std::cout << "in Base Dispatch" << std::endl;
@@ -28,12 +33,6 @@ bool Dispatch(Base& b)
 	return true;
 }
 
-//bool Dispatch(Derived& b)
-//{
-//	std::cout << "In Derived Dispatch " << std::endl;
-//	b.Fun();
-//	return true;
-//}
 
 template<typename T>
 using EventFn = std::function<bool(T&)>;
@@ -47,6 +46,8 @@ int main()
 
 	EventFn<Derived> fn = Dispatch;
 	fn(d);
+
+	Derived::F1();
 
 	return 0;
 }
