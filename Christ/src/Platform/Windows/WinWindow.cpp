@@ -1,8 +1,6 @@
 #include "Pch.h"
 #include "WinWindow.h"
 
-#include <Windows.h>
-
 namespace Christ {
 
 	WindowBase* WindowBase::Create(const WindowProp& prop)

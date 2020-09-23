@@ -1,8 +1,7 @@
 #pragma once
+#include "Pch.h"
 #include "Christ/Core.h"
 #include "Christ/WindowBase.h"
-
-#include <Windows.h>
 
 namespace Christ
 {
