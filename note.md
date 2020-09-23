@@ -62,3 +62,9 @@ dispatch<T>(event& e)
 e.GetType() in T::GetType()
 
 }
+
+## Link Error
+
+dllexport class in headerfile.
+
+if no include of this header file in any source file, this will lead a link error.

@@ -8,9 +8,7 @@ namespace Christ
 	{
 	public:
 		WindowClosedEvent() {}
-		//EVENT_CLASS_TYPE(WindowClosed)
+		EVENT_CLASS_TYPE(WindowClosed)
 
-		EventType GetEventType() { return EventType::WindowClosed; };
-		const char* GetName() { return "WindowClosed"; }
 	};
 }

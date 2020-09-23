@@ -1,5 +1,6 @@
 #pragma once
 #include "Christ/Core.h"
+#include <functional>
 
 namespace Christ
 {
