@@ -16,7 +16,7 @@ namespace Christ {
 		return new WinWindow(prop);
 	}
 
-#if 1
+#if 0
 	LRESULT CALLBACK WinWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		WinWindow* pThis;
@@ -72,7 +72,7 @@ namespace Christ {
 
 
 			if (pThis)
-				return pThis->OnWinMsg(hwnd, msg, wParam, lParam);
+				return pThis->OnWinMsg(msg, wParam, lParam);
 			else
 			{
 				return DefWindowProc(hwnd, msg, wParam, lParam);
@@ -83,7 +83,7 @@ namespace Christ {
 	}
 #endif
 
-	LRESULT CALLBACK WinWindow::OnWinMsg(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	LRESULT CALLBACK WinWindow::OnWinMsg(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		return DefWindowProc(m_HWND, msg, wParam, lParam);
 	}

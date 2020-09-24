@@ -22,7 +22,7 @@ namespace Christ
 
 		static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-		LRESULT CALLBACK OnWinMsg(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		LRESULT CALLBACK OnWinMsg(UINT msg, WPARAM wParam, LPARAM lParam);
 
 	};
 }
