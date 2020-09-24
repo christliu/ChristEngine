@@ -5,6 +5,10 @@
 #include <iostream>
 using namespace std;
 
+// Reference the MSDN Documentation:
+// https://docs.microsoft.com/en-us/windows/win32/learnwin32/managing-application-state-
+// Managing Application State
+
 namespace Christ {
 
 	WindowBase* WindowBase::Create(const WindowProp& prop)
