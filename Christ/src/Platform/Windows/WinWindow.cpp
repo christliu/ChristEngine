@@ -1,9 +1,10 @@
 #include "Pch.h"
 #include "WinWindow.h"
 #include "Christ/Log.h"
+#include "Christ/Event/WindowEvent.h"
 
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
 // Reference the MSDN Documentation:
 // https://docs.microsoft.com/en-us/windows/win32/learnwin32/managing-application-state-
@@ -16,7 +17,6 @@ namespace Christ {
 		return new WinWindow(prop);
 	}
 
-#if 0
 	LRESULT CALLBACK WinWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		WinWindow* pThis;
@@ -39,53 +39,42 @@ namespace Christ {
 		}
 
 		if (pThis)
-			return pThis->OnWinMsg(hwnd, msg, wParam, lParam);
+			return pThis->OnWinMsg(msg, wParam, lParam);
 		else
 		{
 			return DefWindowProc(hwnd, msg, wParam, lParam);
 		}
 
 	}
-#else
-
-	LRESULT CALLBACK WinWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-	{
-		WinWindow* pThis;
-
-		if (msg == WM_NCCREATE)
-		{
-			pThis = static_cast<WinWindow*>(reinterpret_cast<CREATESTRUCT*>(lParam)->lpCreateParams);
-			LOG_INFO("WM_NCCREATE Message Got m_HWND is NULL = {0}", pThis->m_HWND == NULL);
-
-			SetLastError(0);
-			if (!SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pThis)))
-			{
-				if (GetLastError() != 0)
-					return FALSE;
-				pThis->m_HWND = hwnd;
-				cout << "After SetWindowLongPtr " << hwnd << endl;
-			}
-		}
-		else
-		{
-			pThis = reinterpret_cast<WinWindow*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
-
-
-			if (pThis)
-				return pThis->OnWinMsg(msg, wParam, lParam);
-			else
-			{
-				return DefWindowProc(hwnd, msg, wParam, lParam);
-			}
-		}
-
-		return DefWindowProc(hwnd, msg, wParam, lParam);
-	}
-#endif
 
 	LRESULT CALLBACK WinWindow::OnWinMsg(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
-		return DefWindowProc(m_HWND, msg, wParam, lParam);
+		switch (msg)
+		{
+		case WM_DESTROY:
+		{
+			/*PostQuitMessage(0);
+			return 0;*/
+			WindowClosedEvent e;
+			if (m_EventCallback)
+				m_EventCallback(e);
+		}
+
+		return 0;
+
+		case WM_PAINT:
+		{
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(m_HWND, &ps);
+			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+			EndPaint(m_HWND, &ps);
+		}
+		return 0;
+
+		default:
+			return DefWindowProc(m_HWND, msg, wParam, lParam);
+		}
+		return TRUE;
 	}
 
 	WinWindow::WinWindow(const WindowProp& prop)
@@ -95,7 +84,7 @@ namespace Christ {
 
 	void WinWindow::SetEventCallback(const EventFn& f)
 	{
-
+		m_EventCallback = f;
 	}
 
 	void WinWindow::Initialize(const WindowProp& prop)
@@ -103,6 +92,8 @@ namespace Christ {
 		m_Width = prop.width;
 		m_Height = prop.height;
 		m_Title = prop.title;
+
+		m_EventCallback = NULL;
 
 		const char* clsname = "christ window";
 

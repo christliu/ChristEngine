@@ -20,6 +20,8 @@ namespace Christ
 		unsigned int m_Width, m_Height;
 		const char* m_Title;
 
+		EventFn m_EventCallback;
+
 		static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 		LRESULT CALLBACK OnWinMsg(UINT msg, WPARAM wParam, LPARAM lParam);

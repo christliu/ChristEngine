@@ -14,9 +14,12 @@ namespace Christ
 
 		virtual void Run();
 
+		bool OnWindowEvent(EventBase& e);
+
 	private:
 		WindowBase* m_window;
 
+		bool m_IsRunning;
 	};
 
 	static Application* CreateApplication();
