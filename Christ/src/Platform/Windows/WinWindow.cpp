@@ -1,5 +1,9 @@
 #include "Pch.h"
 #include "WinWindow.h"
+#include "Christ/Log.h"
+
+#include <iostream>
+using namespace std;
 
 namespace Christ {
 
@@ -8,6 +12,7 @@ namespace Christ {
 		return new WinWindow(prop);
 	}
 
+#if 1
 	LRESULT CALLBACK WinWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		WinWindow* pThis;
@@ -21,6 +26,7 @@ namespace Christ {
 			{
 				if (GetLastError() != 0)
 					return FALSE;
+				pThis->m_HWND = hwnd;
 			}
 		}
 		else
@@ -28,8 +34,54 @@ namespace Christ {
 			pThis = reinterpret_cast<WinWindow*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		}
 
-		int result = DefWindowProc(hwnd, msg, wParam, lParam);
-		return result;
+		if (pThis)
+			return pThis->OnWinMsg(hwnd, msg, wParam, lParam);
+		else
+		{
+			return DefWindowProc(hwnd, msg, wParam, lParam);
+		}
+
+	}
+#else
+
+	LRESULT CALLBACK WinWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		WinWindow* pThis;
+
+		if (msg == WM_NCCREATE)
+		{
+			pThis = static_cast<WinWindow*>(reinterpret_cast<CREATESTRUCT*>(lParam)->lpCreateParams);
+			LOG_INFO("WM_NCCREATE Message Got m_HWND is NULL = {0}", pThis->m_HWND == NULL);
+
+			SetLastError(0);
+			if (!SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pThis)))
+			{
+				if (GetLastError() != 0)
+					return FALSE;
+				pThis->m_HWND = hwnd;
+				cout << "After SetWindowLongPtr " << hwnd << endl;
+			}
+		}
+		else
+		{
+			pThis = reinterpret_cast<WinWindow*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
+
+			if (pThis)
+				return pThis->OnWinMsg(hwnd, msg, wParam, lParam);
+			else
+			{
+				return DefWindowProc(hwnd, msg, wParam, lParam);
+			}
+		}
+
+		return DefWindowProc(hwnd, msg, wParam, lParam);
+	}
+#endif
+
+	LRESULT CALLBACK WinWindow::OnWinMsg(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		return DefWindowProc(m_HWND, msg, wParam, lParam);
 	}
 
 	WinWindow::WinWindow(const WindowProp& prop)
@@ -91,6 +143,8 @@ namespace Christ {
 	void WinWindow::Tick()
 	{
 		MSG msg;
+
+		// Every Frame handle all windows messages.
 		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
