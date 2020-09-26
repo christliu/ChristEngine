@@ -1,53 +1,67 @@
 #include <iostream>
 #include <functional>
 
-class Base
-{
-public:
-	virtual void Fun()
-	{
-		std::cout << "In Base" << std::endl;
-	}
-	static void F1();
-};
+#include <Windows.h>
+#include <gl/GL.h>
 
-class Derived : public Base
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-public:
-	virtual void Fun()
-	{
-		std::cout << "In Derived" << std::endl;
-	}
-
-};
-
-void Base::F1()
-{
-	std::cout << "In F1" << std::endl;
+	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
-bool Dispatch(Base& b)
+HWND doCreateWindow()
 {
-	std::cout << "in Base Dispatch" << std::endl;
-	b.Fun();
-	return true;
+	const char* clsname = "christ window";
+	const char* title = "testwindow";
+	const int width = 800, height = 600;
+
+	HINSTANCE hInstance = (HINSTANCE)::GetModuleHandle(nullptr);
+	WNDCLASSEX wcex =
+	{
+		sizeof(WNDCLASSEX),
+		CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS,
+		(WNDPROC)WndProc,
+		0, 0, hInstance,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr, clsname,
+		nullptr
+	};
+	if (!::RegisterClassEx(&wcex))
+	{
+		::MessageBoxW(nullptr, L"Failed to register window.", L"Error", MB_OK);
+		::ExitProcess(127);
+	}
+	HWND hWnd = CreateWindowEx(
+		0,
+		clsname,
+		title,
+		WS_OVERLAPPEDWINDOW | WS_CAPTION | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+		0, 0, width, height,
+		nullptr,
+		nullptr,
+		hInstance,
+		NULL);
+	if (hWnd == nullptr)
+	{
+		::MessageBoxW(nullptr, L"Failed to create window.", L"Error", MB_OK);
+		::ExitProcess(127);
+	}
+	::ShowWindow(hWnd, SW_SHOW);
+	return hWnd;
 }
-
-
-template<typename T>
-using EventFn = std::function<bool(T&)>;
 
 int main()
 {
-	std::cout << "Hello Test" << std::endl;
+	HWND hwnd = doCreateWindow();
+	MSG msg;
 
-	Derived d;
-	//Dispatch(d);
-
-	EventFn<Derived> fn = Dispatch;
-	fn(d);
-
-	Derived::F1();
-
+	// Every Frame handle all windows messages.
+	while (GetMessage(&msg, hwnd, 0, 0) > 0)
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 	return 0;
 }

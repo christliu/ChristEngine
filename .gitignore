@@ -1,7 +1,7 @@
 Build
 bin/
 bin-int/
-.sln
+*.sln
 *.vcxproj*
 .vs/
 zhihu.cpp

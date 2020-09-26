@@ -72,19 +72,41 @@ project "GameApp"
 		defines
 		{
 		}
+
+
+include "Christ/external/imgui"
 	
 
 project "Test"
 	location "Test"
-	kind "ConsoleApp"
+	kind "WindowedApp"
 	language "c++"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files {
-		"%{prj.name}/**.h",
-		"%{prj.name}/**.cpp"
+		-- "%{prj.name}/**.h",
+		-- "%{prj.name}/**.cpp"
+		"%{prj.name}/TestImGui.cpp",
+		"%{prj.name}/wglext.h",
+		"Christ/external/imgui/examples/imgui_impl_win32.cpp",
+		"Christ/external/imgui/examples/imgui_impl_opengl3.cpp",
+		"Christ/external/imgui/examples/libs/gl3w/GL/gl3w.c",
+
+	}
+
+	includedirs
+	{
+		"Christ/external/imgui",
+		-- "Christ/external/imgui/examples",
+		"Christ/external/imgui/examples/libs/gl3w"
+	}
+
+	links
+	{
+		"ImGui",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
