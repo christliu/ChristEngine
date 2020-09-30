@@ -3,9 +3,6 @@
 #include "Christ/Log.h"
 #include "Christ/Event/WindowEvent.h"
 
-//#include <iostream>
-//using namespace std;
-
 // Reference the MSDN Documentation:
 // https://docs.microsoft.com/en-us/windows/win32/learnwin32/managing-application-state-
 // Managing Application State
@@ -53,8 +50,6 @@ namespace Christ {
 		{
 		case WM_DESTROY:
 		{
-			/*PostQuitMessage(0);
-			return 0;*/
 			WindowClosedEvent e;
 			if (m_EventCallback)
 				m_EventCallback(e);
