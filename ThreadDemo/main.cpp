@@ -8,7 +8,7 @@
 
 using namespace std;
 
-CRITICAL_SECTION CriticalSection;
+
 
 // @init:
 // InitializeCriticalSectionAndSpinCount
@@ -19,38 +19,115 @@ CRITICAL_SECTION CriticalSection;
 // @eave:
 // LeaveCriticalSection
 
-int result = 0;
-const int LOOP_TIMES = 100000;
-const int THREAD_NUM = 2;
+const int MAX_SIZE = 1000;
+int buffer[MAX_SIZE];
+int startoffset = 0;
+int buffersize = 0;
+CRITICAL_SECTION bufferLock;
+CONDITION_VARIABLE bufferNotEmpty;
+CONDITION_VARIABLE bufferNotFull;
 
-Mutex m;
+bool isRunning = true;
 
-DWORD WINAPI MyThreadFunction(LPVOID lpParam)
+bool isFull()
 {
-	
-	for (int i = 0; i < LOOP_TIMES; i++)
+	return buffersize >= MAX_SIZE;
+}
+
+bool isEmpty()
+{
+	return buffersize <= 0;
+}
+
+
+DWORD WINAPI ConsumerFunction(LPVOID lpParam)
+{
+	int consumerid = int(lpParam);
+	while (isRunning)
 	{
-		LockGuard guard(m);
-		result++;
+		EnterCriticalSection(&bufferLock);
+		
+		while (isEmpty() && isRunning)
+		{
+			SleepConditionVariableCS(&bufferNotEmpty, &bufferLock, INFINITE);
+		}
+
+		if (!isRunning)
+		{
+			LeaveCriticalSection(&bufferLock);
+			break;
+		}
+
+		int item = buffer[(startoffset + buffersize) % MAX_SIZE];
+		cout << "consume " << consumerid << " index " << startoffset << endl;
+		buffersize--;
+		startoffset++;
+		if (startoffset >= MAX_SIZE)
+		{
+			startoffset = 0;
+		}
+
+		LeaveCriticalSection(&bufferLock);
+		WakeConditionVariable(&bufferNotFull);
+	}
+	
+	return 0;
+}
+
+DWORD WINAPI ProductFunction(LPVOID lpParam)
+{
+	while (1)
+	{
+		EnterCriticalSection(&bufferLock);
+
+		while (isFull() && isRunning)
+		{
+			SleepConditionVariableCS(&bufferNotFull, &bufferLock, INFINITE);
+		}
+
+		if (!isRunning)
+		{
+			LeaveCriticalSection(&bufferLock);
+			break;
+		}
+		buffer[(startoffset + buffersize) % MAX_SIZE] = 1;
+		buffersize++;
+		LeaveCriticalSection(&bufferLock);
+		WakeConditionVariable(&bufferNotEmpty);
+
+		Sleep(1000);
 	}
 	return 0;
 }
 
 int main()
 {
-	HANDLE  hThreadArray[THREAD_NUM];
-	for (int i = 0; i < THREAD_NUM; i++)
+	if (InitializeCriticalSectionAndSpinCount(&bufferLock, 4) == 0)
 	{
-		hThreadArray[i] = CreateThread(NULL, 0, MyThreadFunction, NULL, 0, NULL);
-
-		if (hThreadArray[i] == NULL)
-		{
-			cout << "Init Thread Error" << endl;
-			ExitProcess(3);
-		}
+		ExitProcess(3);
 	}
-	WaitForMultipleObjects(THREAD_NUM, hThreadArray, true, INFINITE);
+
+	InitializeConditionVariable(&bufferNotEmpty);
+	InitializeConditionVariable(&bufferNotFull);
+
+	HANDLE producer = CreateThread(NULL, 0, ProductFunction, NULL, 0, NULL);
+	HANDLE consumer1 = CreateThread(NULL, 0, ConsumerFunction, (PVOID)1, 0, NULL);
+	HANDLE consumer2 = CreateThread(NULL, 0, ConsumerFunction, (PVOID)2, 0, NULL);
+
+	cout << "Enter Enter to Exit ..." << endl;
+	getchar();
+
+	EnterCriticalSection(&bufferLock);
+	isRunning = false;
+	LeaveCriticalSection(&bufferLock);
+
+	WakeAllConditionVariable(&bufferNotEmpty);
+	WakeAllConditionVariable(&bufferNotFull);
+
+	WaitForSingleObject(producer, INFINITE);
+	WaitForSingleObject(consumer1, INFINITE);
+	WaitForSingleObject(consumer2, INFINITE);
 	
-	cout << "All Thread Exit with result " << result << endl;
+	cout << "All Thread Exit with result " << endl;
 	return 0;
 }
