@@ -138,4 +138,19 @@ project "Test"
 		defines
 		{
 		}
+
+
+project "ThreadDemo"
+	location "ThreadDemo"
+	kind "ConsoleApp"
+	language "c++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		"%{prj.name}/main.cpp",
+		"%{prj.name}/Mutex.h",
+	}
+
 	
