@@ -74,7 +74,7 @@ project "GameApp"
 		}
 
 
-include "Christ/external/imgui"
+-- include "Christ/external/imgui"
 	
 
 project "Test"
@@ -115,4 +115,39 @@ project "Test"
 		defines
 		{
 		}
+
+
+project "OpenGL"
+	location "OpenGL"
+	kind "ConsoleApp"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 	
+	files
+	{
+		-- "%{prj.name}/**.h",
+		-- "%{prj.name}/**.cpp"
+		"%{prj.name}/Application.cpp",
+		"%{prj.name}/Shader.h",
+		"%{prj.name}/Shader.cpp",
+	}
+
+	includedirs
+	{
+		"%{prj.name}/External/GLFW/include",
+		"%{prj.name}/External/GLEW/include",
+	}
+
+	libdirs
+	{
+		"%{prj.name}/External/GLFW/lib-vc2019",
+		"%{prj.name}/External/GLEW/lib/Release/x64/"
+	}
+
+	links
+	{
+		"opengl32.lib",
+		"glfw3.lib",
+		"glew32s.lib",
+	}
