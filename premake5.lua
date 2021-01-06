@@ -75,6 +75,29 @@ project "GameApp"
 
 
 -- include "Christ/external/imgui"
+-- include "Christ/external/glad"
+
+
+-- project "TestGlad"
+-- 	location "TestGlad"
+-- 	kind "WindowedApp"
+-- 	language "c++"
+
+-- 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+-- 	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
+
+-- 	files {
+-- 		"%{prj.name}/TestGlad.cpp",
+-- 	}
+
+-- 	includedirs {
+-- 		"Christ/external/glad/include"
+-- 	}
+
+-- 	links {
+-- 		"glad",
+-- 		"opengl32.lib"
+-- 	}
 	
 
 project "Test"
@@ -151,3 +174,18 @@ project "OpenGL"
 		"glfw3.lib",
 		"glew32s.lib",
 	}
+
+project "ThreadDemo"
+	location "ThreadDemo"
+	kind "ConsoleApp"
+	language "c++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		"%{prj.name}/main.cpp",
+		"%{prj.name}/Mutex.h",
+	}
+
+	
