@@ -5,6 +5,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Shader.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
+#include "VertexBufferLayout.h"
 
 int main(void)
 {
@@ -37,18 +40,13 @@ int main(void)
         0.5, -0.5, 0
     };
 
-    unsigned int VBO, VAO;
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &VAO);
-    glBindVertexArray( VAO);
+    VertexBuffer vb(&vertices, sizeof(vertices));
+    VertexArray va;
+    VertexBufferLayout layout;
+    layout.Push<float>(3);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 9, vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray( 0);
+    va.Bind();
+    va.AddBuffer(vb, layout);
 
     Shader myShader("resource/shader/Basic.shader");
 
@@ -57,11 +55,10 @@ int main(void)
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindVertexArray(VAO);
-        //glUseProgram(shaderProgram);
+        va.Bind();
         myShader.Bind();
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        glBindVertexArray(0);
+        va.UnBind();
         myShader.UnBind();
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

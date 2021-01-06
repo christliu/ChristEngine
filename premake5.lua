@@ -154,6 +154,13 @@ project "OpenGL"
 		"%{prj.name}/Application.cpp",
 		"%{prj.name}/Shader.h",
 		"%{prj.name}/Shader.cpp",
+		"%{prj.name}/VertexArray.h",
+		"%{prj.name}/VertexArray.cpp",
+		"%{prj.name}/VertexBuffer.h",
+		"%{prj.name}/VertexBuffer.cpp",
+		"%{prj.name}/VertexBufferLayout.h",
+		"%{prj.name}/VertexBufferLayout.cpp",
+
 	}
 
 	includedirs
