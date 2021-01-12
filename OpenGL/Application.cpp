@@ -8,6 +8,8 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
+#include "Texture.h"
+#include "Renderer.h"
 
 int main(void)
 {
@@ -35,35 +37,46 @@ int main(void)
     std::cout << glGetString(GL_VERSION) << std::endl;
 
     float vertices[] = {
-        -0.5, -0.5, 0,
-        0, 0.5, 0,
-        0.5, -0.5, 0
+        -0.5, -0.5, 0,  0.0f, 0.0f,
+        -0.5, 0.5, 0, 0.0f, 1.0f,
+        0.5, -0.5, 0, 1.0f, 0.0f,
+        0.5, 0.5, 0, 1.0f, 1.0f
+    };
+
+    int indices[] = {
+        0,1,2,
+        1,2,3
     };
 
     VertexBuffer vb(&vertices, sizeof(vertices));
+    IndexBuffer eb(indices, sizeof(indices) / sizeof(int));
     VertexArray va;
     VertexBufferLayout layout;
     layout.Push<float>(3);
+    layout.Push<float>(2);
 
     va.Bind();
-    va.AddBuffer(vb, layout);
+    va.AddBuffer(vb, eb, layout);
 
     Shader myShader("resource/shader/Basic.shader");
+
+    Texture texture("resource/textures/wood.png", false);
+
+    Renderer render;
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        va.Bind();
-        myShader.Bind();
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        va.UnBind();
-        myShader.UnBind();
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
 
-        /* Poll for and process events */
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        {
+            render.Render(va, eb, myShader);
+        }
+
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
 

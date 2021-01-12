@@ -10,10 +10,26 @@ void VertexArray::AddBuffer(VertexBuffer& vb, VertexBufferLayout& layout)
 {
 	vb.Bind();
 	const auto& elems = layout.GetElems();
+	unsigned int offset = 0;
 	for (int i = 0; i < elems.size(); i++)
 	{
-		glVertexAttribPointer(i, elems[i].count, elems[i].type, false, layout.GetStride(), 0);
-		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(i, elems[i].count, elems[i].type, false, layout.GetStride(), (void*)offset);
+		offset += elems[i].GetSize();
+		glEnableVertexAttribArray(i);
+	}
+}
+
+void VertexArray::AddBuffer(VertexBuffer& vb, IndexBuffer& eb, VertexBufferLayout& layout)
+{
+	vb.Bind();
+	eb.Bind();
+	const auto& elems = layout.GetElems();
+	unsigned int offset = 0;
+	for (int i = 0; i < elems.size(); i++)
+	{
+		glVertexAttribPointer(i, elems[i].count, elems[i].type, false, layout.GetStride(), (void*)offset);
+		offset += elems[i].GetSize();
+		glEnableVertexAttribArray(i);
 	}
 }
 

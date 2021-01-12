@@ -7,6 +7,19 @@ struct LayoutElement
 	unsigned int count;
 	unsigned int type;
 
+	const unsigned int GetSize() const
+	{
+		unsigned int sizePerElems = 0;
+		switch (type)
+		{
+		case GL_FLOAT:
+			sizePerElems = sizeof(GLfloat);
+			break;
+
+		}
+		return sizePerElems * count;
+	}
+
 };
 
 class VertexBufferLayout

@@ -160,6 +160,12 @@ project "OpenGL"
 		"%{prj.name}/VertexBuffer.cpp",
 		"%{prj.name}/VertexBufferLayout.h",
 		"%{prj.name}/VertexBufferLayout.cpp",
+		"%{prj.name}/Texture.h",
+		"%{prj.name}/Texture.cpp",
+		"%{prj.name}/Renderer.h",
+		"%{prj.name}/Renderer.cpp",
+		"%{prj.name}/External/STB_Image/stb_image.h",
+		"%{prj.name}/External/STB_Image/stb_image.cpp"
 
 	}
 
@@ -167,6 +173,7 @@ project "OpenGL"
 	{
 		"%{prj.name}/External/GLFW/include",
 		"%{prj.name}/External/GLEW/include",
+		"%{prj.name}/External/STB_Image",
 	}
 
 	libdirs
