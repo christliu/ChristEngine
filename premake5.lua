@@ -165,7 +165,21 @@ project "OpenGL"
 		"%{prj.name}/Renderer.h",
 		"%{prj.name}/Renderer.cpp",
 		"%{prj.name}/External/STB_Image/stb_image.h",
-		"%{prj.name}/External/STB_Image/stb_image.cpp"
+		"%{prj.name}/External/STB_Image/stb_image.cpp",
+		"%{prj.name}/External/ImGUI/imconfig.h",
+		"%{prj.name}/External/ImGUI/imgui.h",
+		"%{prj.name}/External/ImGUI/imgui.cpp",
+		"%{prj.name}/External/ImGUI/imgui_demo.cpp",
+		"%{prj.name}/External/ImGUI/imgui_draw.cpp",
+		"%{prj.name}/External/ImGUI/imgui_impl_opengl3.cpp",
+		"%{prj.name}/External/ImGUI/imgui_impl_opengl3.h",
+		"%{prj.name}/External/ImGUI/imgui_internal.h",
+		"%{prj.name}/External/ImGUI/imgui_widgets.cpp",
+		"%{prj.name}/External/ImGUI/imstb_rectpack.h",
+		"%{prj.name}/External/ImGUI/imstb_textedit.h",
+		"%{prj.name}/External/ImGUI/imstb_truetype.h",
+		"%{prj.name}/External/ImGUI/imgui_impl_glfw.h",
+		"%{prj.name}/External/ImGUI/imgui_impl_glfw.cpp",
 
 	}
 
@@ -174,6 +188,7 @@ project "OpenGL"
 		"%{prj.name}/External/GLFW/include",
 		"%{prj.name}/External/GLEW/include",
 		"%{prj.name}/External/STB_Image",
+		"%{prj.name}/External/ImGUI",
 	}
 
 	libdirs

@@ -1,6 +1,10 @@
 
 #define GLEW_STATIC
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 #include<GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -20,7 +24,7 @@ int main(void)
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1280, 960, "Hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -34,7 +38,15 @@ int main(void)
     if (res != GLEW_OK)
         return -1;
 
+    std::cout << "CheckVersion" << std::endl;
+    IMGUI_CHECKVERSION();
+
     std::cout << glGetString(GL_VERSION) << std::endl;
+ 
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+    ImGui::StyleColorsDark();
 
     float vertices[] = {
         -0.5, -0.5, 0,  0.0f, 0.0f,
@@ -76,9 +88,27 @@ int main(void)
             render.Render(va, eb, myShader);
         }
 
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::Begin("Demo window");
+        ImGui::Button("Hello!");
+
+        static float rotation = 0.0;
+        ImGui::SliderFloat("rotation", &rotation, 0, 2 * 3.14);
+        ImGui::End();
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 
     glfwTerminate();
     return 0;
