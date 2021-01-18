@@ -1,6 +1,7 @@
 
 #define GLEW_STATIC
 
+// external header file
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -8,12 +9,18 @@
 #include<GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
+
+// opengl core
 #include "Shader.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 #include "Texture.h"
 #include "Renderer.h"
+
+// examples
+#include "ExampleClear.h"
 
 int main(void)
 {
@@ -76,16 +83,23 @@ int main(void)
 
     Renderer render;
 
+    ExampleBase* current;
+    ExampleMenu *menu = new ExampleMenu(current);
+    current = menu;
+
+    menu->AddExample<ExampleClear>("ClearColor");
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0, 0, 0, 1.0);
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         {
-            render.Render(va, eb, myShader);
+            //render.Render(va, eb, myShader);
         }
 
         ImGui_ImplOpenGL3_NewFrame();
@@ -93,10 +107,25 @@ int main(void)
         ImGui::NewFrame();
 
         ImGui::Begin("Demo window");
-        ImGui::Button("Hello!");
 
-        static float rotation = 0.0;
-        ImGui::SliderFloat("rotation", &rotation, 0, 2 * 3.14);
+        if (current != menu)
+        {
+            if (ImGui::Button("<- back"))
+            {
+                delete current;
+                current = menu;
+            }
+        }
+        current->OnImGuiRender();
+        current->Render();
+
+        //if(ImGui::Button("Hello!"))
+        //{
+        //    std::cout << "Hello Demo Run" << std::endl;
+        //};
+
+       /* static float rotation = 0.0;
+        ImGui::SliderFloat("rotation", &rotation, 0, 2 * 3.14);*/
         ImGui::End();
 
         ImGui::Render();

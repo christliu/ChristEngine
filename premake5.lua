@@ -180,6 +180,9 @@ project "OpenGL"
 		"%{prj.name}/External/ImGUI/imstb_truetype.h",
 		"%{prj.name}/External/ImGUI/imgui_impl_glfw.h",
 		"%{prj.name}/External/ImGUI/imgui_impl_glfw.cpp",
+		"%{prj.name}/examples/ExampleBase.h",
+		"%{prj.name}/examples/ExampleClear.h",
+		"%{prj.name}/examples/ExampleClear.cpp",
 
 	}
 
@@ -189,6 +192,7 @@ project "OpenGL"
 		"%{prj.name}/External/GLEW/include",
 		"%{prj.name}/External/STB_Image",
 		"%{prj.name}/External/ImGUI",
+		"%{prj.name}/examples",
 	}
 
 	libdirs
