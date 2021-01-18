@@ -74,30 +74,30 @@ project "GameApp"
 		}
 
 
-include "Christ/external/imgui"
-include "Christ/external/glad"
+-- include "Christ/external/imgui"
+-- include "Christ/external/glad"
 
 
-project "TestGlad"
-	location "TestGlad"
-	kind "WindowedApp"
-	language "c++"
+-- project "TestGlad"
+-- 	location "TestGlad"
+-- 	kind "WindowedApp"
+-- 	language "c++"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
+-- 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+-- 	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files {
-		"%{prj.name}/TestGlad.cpp",
-	}
+-- 	files {
+-- 		"%{prj.name}/TestGlad.cpp",
+-- 	}
 
-	includedirs {
-		"Christ/external/glad/include"
-	}
+-- 	includedirs {
+-- 		"Christ/external/glad/include"
+-- 	}
 
-	links {
-		"glad",
-		"opengl32.lib"
-	}
+-- 	links {
+-- 		"glad",
+-- 		"opengl32.lib"
+-- 	}
 	
 
 project "Test"
@@ -139,6 +139,70 @@ project "Test"
 		{
 		}
 
+
+project "OpenGL"
+	location "OpenGL"
+	kind "ConsoleApp"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+	files
+	{
+		-- "%{prj.name}/**.h",
+		-- "%{prj.name}/**.cpp"
+		"%{prj.name}/Application.cpp",
+		"%{prj.name}/Shader.h",
+		"%{prj.name}/Shader.cpp",
+		"%{prj.name}/VertexArray.h",
+		"%{prj.name}/VertexArray.cpp",
+		"%{prj.name}/VertexBuffer.h",
+		"%{prj.name}/VertexBuffer.cpp",
+		"%{prj.name}/VertexBufferLayout.h",
+		"%{prj.name}/VertexBufferLayout.cpp",
+		"%{prj.name}/Texture.h",
+		"%{prj.name}/Texture.cpp",
+		"%{prj.name}/Renderer.h",
+		"%{prj.name}/Renderer.cpp",
+		"%{prj.name}/External/STB_Image/stb_image.h",
+		"%{prj.name}/External/STB_Image/stb_image.cpp",
+		"%{prj.name}/External/ImGUI/imconfig.h",
+		"%{prj.name}/External/ImGUI/imgui.h",
+		"%{prj.name}/External/ImGUI/imgui.cpp",
+		"%{prj.name}/External/ImGUI/imgui_demo.cpp",
+		"%{prj.name}/External/ImGUI/imgui_draw.cpp",
+		"%{prj.name}/External/ImGUI/imgui_impl_opengl3.cpp",
+		"%{prj.name}/External/ImGUI/imgui_impl_opengl3.h",
+		"%{prj.name}/External/ImGUI/imgui_internal.h",
+		"%{prj.name}/External/ImGUI/imgui_widgets.cpp",
+		"%{prj.name}/External/ImGUI/imstb_rectpack.h",
+		"%{prj.name}/External/ImGUI/imstb_textedit.h",
+		"%{prj.name}/External/ImGUI/imstb_truetype.h",
+		"%{prj.name}/External/ImGUI/imgui_impl_glfw.h",
+		"%{prj.name}/External/ImGUI/imgui_impl_glfw.cpp",
+
+	}
+
+	includedirs
+	{
+		"%{prj.name}/External/GLFW/include",
+		"%{prj.name}/External/GLEW/include",
+		"%{prj.name}/External/STB_Image",
+		"%{prj.name}/External/ImGUI",
+	}
+
+	libdirs
+	{
+		"%{prj.name}/External/GLFW/lib-vc2019",
+		"%{prj.name}/External/GLEW/lib/Release/x64/"
+	}
+
+	links
+	{
+		"opengl32.lib",
+		"glfw3.lib",
+		"glew32s.lib",
+	}
 
 project "ThreadDemo"
 	location "ThreadDemo"
