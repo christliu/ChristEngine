@@ -148,9 +148,15 @@ project "ThreadDemo"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	-- includedirs
+	-- {
+	-- 	"%{prj.name}/",
+	-- }
+
 	files {
 		"%{prj.name}/main.cpp",
 		"%{prj.name}/Mutex.h",
+		"%{prj.name}/TaskDispatcher.h",
 	}
 
 	

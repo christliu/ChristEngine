@@ -4,6 +4,7 @@
 
 #include <Windows.h>
 #include <iostream>
+#include "TaskDispatcher.h"
 #include "Mutex.h"
 
 using namespace std;
@@ -15,11 +16,11 @@ using namespace std;
 // @delete:
 // DeleteCriticalSection
 // @enter:
-// nterCriticalSection
+// EnterCriticalSection
 // @eave:
 // LeaveCriticalSection
 
-const int MAX_SIZE = 1000;
+const int MAX_SIZE = 10;
 int buffer[MAX_SIZE];
 int startoffset = 0;
 int buffersize = 0;
@@ -102,6 +103,7 @@ DWORD WINAPI ProductFunction(LPVOID lpParam)
 
 int main()
 {
+	/*
 	if (InitializeCriticalSectionAndSpinCount(&bufferLock, 4) == 0)
 	{
 		ExitProcess(3);
@@ -117,6 +119,7 @@ int main()
 	cout << "Enter Enter to Exit ..." << endl;
 	getchar();
 
+	cout << "Ready to exit " << endl;
 	EnterCriticalSection(&bufferLock);
 	isRunning = false;
 	LeaveCriticalSection(&bufferLock);
@@ -129,5 +132,8 @@ int main()
 	WaitForSingleObject(consumer2, INFINITE);
 	
 	cout << "All Thread Exit with result " << endl;
+	*/
+
+	TestUniptr();
 	return 0;
 }
