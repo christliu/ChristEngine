@@ -100,3 +100,8 @@ void Shader::UnBind()
 {
 	glUseProgram(0);
 }
+
+Shader::~Shader()
+{
+	glDeleteProgram(m_shaderId);
+}

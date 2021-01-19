@@ -183,6 +183,8 @@ project "OpenGL"
 		"%{prj.name}/examples/ExampleBase.h",
 		"%{prj.name}/examples/ExampleClear.h",
 		"%{prj.name}/examples/ExampleClear.cpp",
+		"%{prj.name}/examples/ExampleVertexLayout.cpp",
+		"%{prj.name}/examples/ExampleVertexLayout.h",
 
 	}
 
@@ -193,6 +195,7 @@ project "OpenGL"
 		"%{prj.name}/External/STB_Image",
 		"%{prj.name}/External/ImGUI",
 		"%{prj.name}/examples",
+		"%{prj.name}",
 	}
 
 	libdirs

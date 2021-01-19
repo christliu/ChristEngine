@@ -21,6 +21,7 @@
 
 // examples
 #include "ExampleClear.h"
+#include "ExampleVertexLayout.h"
 
 int main(void)
 {
@@ -55,39 +56,15 @@ int main(void)
     ImGui_ImplOpenGL3_Init("#version 330");
     ImGui::StyleColorsDark();
 
-    float vertices[] = {
-        -0.5, -0.5, 0,  0.0f, 0.0f,
-        -0.5, 0.5, 0, 0.0f, 1.0f,
-        0.5, -0.5, 0, 1.0f, 0.0f,
-        0.5, 0.5, 0, 1.0f, 1.0f
-    };
+   
 
-    int indices[] = {
-        0,1,2,
-        1,2,3
-    };
-
-    VertexBuffer vb(&vertices, sizeof(vertices));
-    IndexBuffer eb(indices, sizeof(indices) / sizeof(int));
-    VertexArray va;
-    VertexBufferLayout layout;
-    layout.Push<float>(3);
-    layout.Push<float>(2);
-
-    va.Bind();
-    va.AddBuffer(vb, eb, layout);
-
-    Shader myShader("resource/shader/Basic.shader");
-
-    Texture texture("resource/textures/wood.png", false);
-
-    Renderer render;
 
     ExampleBase* current;
     ExampleMenu *menu = new ExampleMenu(current);
     current = menu;
 
     menu->AddExample<ExampleClear>("ClearColor");
+    menu->AddExample<ExampleVertexLayout>("VertexLayout");
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -119,13 +96,6 @@ int main(void)
         current->OnImGuiRender();
         current->Render();
 
-        //if(ImGui::Button("Hello!"))
-        //{
-        //    std::cout << "Hello Demo Run" << std::endl;
-        //};
-
-       /* static float rotation = 0.0;
-        ImGui::SliderFloat("rotation", &rotation, 0, 2 * 3.14);*/
         ImGui::End();
 
         ImGui::Render();

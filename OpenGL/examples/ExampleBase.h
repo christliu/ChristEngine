@@ -7,7 +7,10 @@
 class ExampleBase
 {
 public:
-	ExampleBase() {}
+	ExampleBase() 
+	{
+		Init();
+	}
 
 	virtual void Init() {};
 	virtual void OnUpdate() {};
