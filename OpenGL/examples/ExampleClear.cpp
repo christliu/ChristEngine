@@ -1,9 +1,6 @@
 #include "ExampleClear.h"
 #include<GL/glew.h>
 
-void ExampleClear::Init()
-{
-}
 
 void ExampleClear::OnImGuiRender()
 {

@@ -4,6 +4,7 @@ class Texture
 {
 public:
 	Texture(const char* filename, bool isAlpha);
+	~Texture();
 
 	void Bind();
 	void UnBind();

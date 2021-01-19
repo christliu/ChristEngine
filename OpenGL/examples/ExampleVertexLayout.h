@@ -14,7 +14,8 @@ class Renderer;
 class ExampleVertexLayout : public ExampleBase
 {
 public:
-	ExampleVertexLayout(): ExampleBase() {
+	ExampleVertexLayout()
+	{
 		Init();
 	};
 

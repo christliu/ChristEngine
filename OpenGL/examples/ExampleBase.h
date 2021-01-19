@@ -7,12 +7,12 @@
 class ExampleBase
 {
 public:
-	ExampleBase() 
+	ExampleBase()
 	{
-		Init();
 	}
 
-	virtual void Init() {};
+	virtual ~ExampleBase() {};
+
 	virtual void OnUpdate() {};
 	virtual void Render() {};
 	virtual void OnImGuiRender() {};
@@ -26,7 +26,6 @@ class ExampleMenu : public ExampleBase
 public:
 	ExampleMenu(ExampleBase*& current) : ExampleBase(), m_current(current) {}
 
-	void Init() {}
 
 	void Render() {
 
