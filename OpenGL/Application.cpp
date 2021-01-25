@@ -18,10 +18,12 @@
 #include "VertexBufferLayout.h"
 #include "Texture.h"
 #include "Renderer.h"
+#include "Camera.h"
 
 // examples
 #include "ExampleClear.h"
 #include "ExampleVertexLayout.h"
+#include "ExampleCamera.h"
 
 int main(void)
 {
@@ -56,17 +58,14 @@ int main(void)
     ImGui_ImplOpenGL3_Init("#version 330");
     ImGui::StyleColorsDark();
 
-   
-
-
     ExampleBase* current;
     ExampleMenu *menu = new ExampleMenu(current);
     current = menu;
 
     menu->AddExample<ExampleClear>("ClearColor");
     menu->AddExample<ExampleVertexLayout>("VertexLayout");
+    menu->AddExample<ExampleCamera>("Camera");
 
-    /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -74,10 +73,6 @@ int main(void)
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        {
-            //render.Render(va, eb, myShader);
-        }
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();

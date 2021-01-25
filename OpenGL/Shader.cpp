@@ -101,6 +101,12 @@ void Shader::UnBind()
 	glUseProgram(0);
 }
 
+void Shader::SetMatrix4(const char* position, const glm::mat4& matrix)
+{
+	GLint pos = glGetUniformLocation(m_shaderId, position);
+	glUniformMatrix4fv(glGetUniformLocation(m_shaderId, position), 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
 Shader::~Shader()
 {
 	glDeleteProgram(m_shaderId);

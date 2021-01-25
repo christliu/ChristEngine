@@ -164,6 +164,8 @@ project "OpenGL"
 		"%{prj.name}/Texture.cpp",
 		"%{prj.name}/Renderer.h",
 		"%{prj.name}/Renderer.cpp",
+		"%{prj.name}/Camera.h",
+		"%{prj.name}/Camera.cpp",
 		"%{prj.name}/External/STB_Image/stb_image.h",
 		"%{prj.name}/External/STB_Image/stb_image.cpp",
 		"%{prj.name}/External/ImGUI/imconfig.h",
@@ -185,6 +187,8 @@ project "OpenGL"
 		"%{prj.name}/examples/ExampleClear.cpp",
 		"%{prj.name}/examples/ExampleVertexLayout.cpp",
 		"%{prj.name}/examples/ExampleVertexLayout.h",
+		"%{prj.name}/examples/ExampleCamera.h",
+		"%{prj.name}/examples/ExampleCamera.cpp",
 
 	}
 
@@ -194,6 +198,7 @@ project "OpenGL"
 		"%{prj.name}/External/GLEW/include",
 		"%{prj.name}/External/STB_Image",
 		"%{prj.name}/External/ImGUI",
+		"%{prj.name}/External/glm",
 		"%{prj.name}/examples",
 		"%{prj.name}",
 	}
