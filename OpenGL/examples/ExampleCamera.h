@@ -8,6 +8,8 @@ class IndexBuffer;
 class VertexArray;
 //class Texture;
 class Renderer;
+class Camera;
+
 
 class ExampleCamera : public ExampleBase
 {
@@ -26,6 +28,8 @@ private:
 
 	//std::unique_ptr<Texture> m_pTexture;
 	std::unique_ptr<Renderer> m_pRenderer;
+	std::unique_ptr<Camera> m_pCamera;
 
-	float r_v;
+	float camera_x, camera_y, camera_z;
+	float yaw;
 };

@@ -1,14 +1,18 @@
 #include "ExampleCamera.h"
 #include "Shader.h"
-
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 #include "Texture.h"
 #include "Renderer.h"
 
+#include "Camera.h"
+
 ExampleCamera::ExampleCamera()
 {
+    camera_x = 0, camera_y = 0, camera_z = 10.0f;
+    yaw = -90.0f;
+    m_pCamera = std::make_unique<Camera>(glm::vec3( camera_x, camera_y, camera_z));
 	m_pShader = std::make_unique<Shader>("resource/shader/BasicCamera.shader");
     float r = 0.5f;
 
@@ -39,7 +43,6 @@ ExampleCamera::ExampleCamera()
     m_pVA->Bind();
     m_pVA->AddBuffer(*m_pVB.get(), *m_pEB.get(), layout);
 
-    r_v = -5.0f;
 }
 
 void ExampleCamera::Render()
@@ -47,10 +50,12 @@ void ExampleCamera::Render()
     const int WIDTH = 1280;
     const int HEIGHT = 960;
 
+    m_pCamera->SetPosition(glm::vec3(camera_x, camera_y, camera_z));
+    m_pCamera->SetYaw(yaw);
     glm::mat4 model = glm::mat4(1.0f);
 
-    glm::mat4 view = glm::mat4(1.0f);
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, r_v));
+    glm::mat4 view = m_pCamera->GetViewMatrix();
+
 
     glm::mat4 projection = glm::mat4(1.0f);
     projection = glm::perspective(45.0f, float(WIDTH) / float(HEIGHT), 0.1f, 100.0f);
@@ -64,5 +69,8 @@ void ExampleCamera::Render()
 
 void ExampleCamera::OnImGuiRender()
 {
-    ImGui::SliderFloat("r", &r_v, -10.0f, 10.0f);
+    ImGui::SliderFloat("pos.x", &camera_x, -10.0f, 10.0f);
+    ImGui::SliderFloat("pos.y", &camera_y, -10.0f, 10.0f);
+    ImGui::SliderFloat("pos.z", &camera_z, -10.0f, 10.0f);
+    ImGui::SliderFloat("yaw", &yaw, -180.0f, 180.0f);
 }
