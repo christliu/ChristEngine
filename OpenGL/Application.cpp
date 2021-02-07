@@ -25,6 +25,17 @@
 #include "ExampleVertexLayout.h"
 #include "ExampleCamera.h"
 
+bool firstMouse = true;
+float lastX = 1280 / 2.0f;
+float lastY = 960 / 2.0f;
+float xoffset = 0.0f;
+float yoffset = 0.0f;
+
+void mouse_callback(GLFWwindow* window, int button, int action, int mods);
+void mouse_move(GLFWwindow* window, double xpos, double ypos);
+
+ExampleBase* current;
+
 int main(void)
 {
     GLFWwindow* window;
@@ -58,7 +69,7 @@ int main(void)
     ImGui_ImplOpenGL3_Init("#version 330");
     ImGui::StyleColorsDark();
 
-    ExampleBase* current;
+    
     ExampleMenu *menu = new ExampleMenu(current);
     current = menu;
 
@@ -66,8 +77,18 @@ int main(void)
     menu->AddExample<ExampleVertexLayout>("VertexLayout");
     menu->AddExample<ExampleCamera>("Camera");
 
+    glfwSetCursorPosCallback(window, mouse_move);
+    glfwSetMouseButtonCallback(window, mouse_callback);
+
+    float deltaTime = 0.0f;
+    float lastFrame = glfwGetTime();
+
     while (!glfwWindowShouldClose(window))
     {
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0, 0, 0, 1.0);
 
@@ -86,8 +107,11 @@ int main(void)
             {
                 delete current;
                 current = menu;
+                firstMouse = true;
             }
         }
+        current->OnUpdate(window, deltaTime);
+        //current->OnMouseMove(xoffset, yoffset);
         current->OnImGuiRender();
         current->Render();
 
@@ -106,4 +130,14 @@ int main(void)
 
     glfwTerminate();
     return 0;
+}
+
+void mouse_move(GLFWwindow* window, double xpos, double ypos)
+{
+    current->mouse_move(window, xpos, ypos);
+}
+
+void mouse_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    current->mouse_callback(window, button, action, mods);
 }

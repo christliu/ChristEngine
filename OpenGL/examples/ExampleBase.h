@@ -4,6 +4,8 @@
 
 #include "imgui.h"
 
+class GLFWwindow;
+
 class ExampleBase
 {
 public:
@@ -13,7 +15,10 @@ public:
 
 	virtual ~ExampleBase() {};
 
-	virtual void OnUpdate() {};
+	virtual void OnUpdate(GLFWwindow* window, float deltaTime) {};
+	virtual void OnMouseMove(float xoffset, float yoffset) {};
+	virtual void mouse_callback(GLFWwindow* window, int button, int action, int mods) {};
+	virtual void mouse_move(GLFWwindow* window, double xpos, double ypos) {};
 	virtual void Render() {};
 	virtual void OnImGuiRender() {};
 

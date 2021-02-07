@@ -2,6 +2,8 @@
 #include <memory>
 #include "ExampleBase.h"
 
+#include <glm/glm.hpp>
+
 class Shader;
 class VertexBuffer;
 class IndexBuffer;
@@ -17,7 +19,14 @@ public:
 	ExampleCamera();
 
 	void Render();
+	void OnUpdate(GLFWwindow* window, float deltaTime);
+	void OnMouseMove(float xoffset, float yoffset);
 	void ExampleCamera::OnImGuiRender();
+
+	void mouse_callback(GLFWwindow* window, int button, int action, int mods);
+	void mouse_move(GLFWwindow* window, double xpos, double ypos);
+private:
+	void processInput(GLFWwindow* window, float deltaTime);
 
 private:
 	std::unique_ptr<Shader> m_pShader;
@@ -32,4 +41,9 @@ private:
 
 	float camera_x, camera_y, camera_z;
 	float yaw;
+
+	glm::vec3 cameraPos;
+
+	bool m_mouseClicked;
+	double lastX, lastY;
 };

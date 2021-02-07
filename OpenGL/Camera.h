@@ -3,6 +3,14 @@
 #include<glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+enum DIRECTION 
+{ 
+	FORWARD, 
+	BACKWARD, 
+	LEFT, 
+	RIGHT 
+};
+
 class Camera
 {
 public:
@@ -29,7 +37,12 @@ public:
 		UpdateCameraVectors();
 	}
 
+	void UpdateYawPitch(float xoffset, float yoffset);
+
 	void UpdateCameraVectors();
+
+	void ProcessKeyboard(DIRECTION dir, float delta);
+
 
 private:
 	glm::vec3 m_Pos;
